@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Delta Activities</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="actions">
+        <item>Do Nothing</item>
+        <item>Visit Deltaprogram.us</item>
+        <item>Call Someone</item>
+        <item>Map of YETspaceATX</item>
+        <item>Take picture</item>
+        <item>Edit first contact</item>
+    </string-array>
+</resources>

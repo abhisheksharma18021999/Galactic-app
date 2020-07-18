@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/c">
+
+    <TextView
+        android:id="@+id/activityName"
+        android:padding="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Dimension C-678"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/gotpower"
+        android:padding="20dp"
+        android:layout_marginTop="210dp"
+        android:background="#61C241"
+        android:text="Nothing To Be Displayed"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/voice"
+        android:layout_centerHorizontal="true"
+        android:padding="20dp"
+        android:layout_marginTop="40dp"
+        android:background="#61C241"
+        android:text="Text to voice"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_below="@+id/gotpower"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/returnhome"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:padding="5dp"
+            android:textColor="#61C241"
+            android:layout_marginTop="0dp"
+            android:background="#000000"
+            android:text="Return Home">
+        </Button>
+        <Button
+            android:layout_width="match_parent"
+            android:id="@+id/power"
+            android:layout_marginTop="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:textColor="#61C241"
+            android:background="#000000"
+            android:padding="5dp"
+            android:text="Power-Ups">
+        </Button>
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
+
+
