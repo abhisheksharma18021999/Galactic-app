@@ -17,6 +17,7 @@ public class SecondActivity extends Activity {
     final public static int DETAIL_REQ = 1;
     TextView textView=null;
     Button voice = null;
+    Button pdf;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +42,18 @@ public class SecondActivity extends Activity {
                 startActivityForResult(i,DETAIL_REQ);
             }
         });
+
+
+        pdf =(Button)findViewById(R.id.pdfconvertor);
+        pdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(),ImgToPdfConvertor.class);
+                startActivity(i);
+            }
+        });
+
+
 
         voice =(Button)findViewById(R.id.voice);
         voice.setOnClickListener(new View.OnClickListener() {

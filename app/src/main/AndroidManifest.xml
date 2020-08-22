@@ -31,6 +31,8 @@
             android:name=".DetailActivity"/>
         <activity
             android:name=".TextToVoiceActivity"/>
+        <activity
+            android:name=".ImgToPdfConvertor"/>
     </application>
 
 </manifest>
