@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/xx">
+    android:background="@drawable/purple">
 
 
     <Button
@@ -10,12 +10,55 @@
         android:layout_height="50dp"
         android:text="Img to Pdf Convertor"
         android:background="#61C241"
-        android:id="@+id/button"
+        android:id="@+id/select_img_btn"
         android:textSize="20dp"
+        android:onClick="selectImage"
         android:padding="5dp"
         android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="46dp" />
+
+<!--    <EditText-->
+<!--        android:id="@+id/fileName"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_below="@+id/select_img_btn"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:hint="Enter your filename in pdf format."-->
+<!--        android:background="#FFFFFF"/>-->
+
+<!--    <Button-->
+<!--        android:layout_width="250dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:text="Show pdf"-->
+<!--        android:background="#61C241"-->
+<!--        android:id="@+id/showpdf"-->
+<!--        android:textSize="20dp"-->
+<!--        android:onClick="showPDF"-->
+<!--        android:padding="5dp"-->
+<!--        android:layout_below="@+id/fileName"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="46dp" />-->
+
+<!--    <Button-->
+<!--        android:layout_width="250dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:text="Save PDF"-->
+<!--        android:background="#61C241"-->
+<!--        android:id="@+id/save"-->
+<!--        android:textSize="20dp"-->
+<!--        android:onClick="saveFile"-->
+<!--        android:padding="5dp"-->
+<!--        android:layout_below="@+id/showpdf"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="46dp" />-->
+
+
+
+
+
 
 </RelativeLayout>
 
