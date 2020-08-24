@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/c">
+    android:background="@drawable/random">
 
     <TextView
         android:id="@+id/activityName"
@@ -50,7 +50,7 @@
         android:padding="20dp"
         android:layout_marginTop="30dp"
         android:background="#61C241"
-        android:text="Image To pdf"
+        android:text=" PDF CONVERTOR "
         android:textColor="#000000"
         android:textSize="20dp"
         android:gravity="center"

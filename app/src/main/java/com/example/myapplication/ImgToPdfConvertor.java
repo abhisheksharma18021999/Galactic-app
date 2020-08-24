@@ -114,32 +114,6 @@ public class ImgToPdfConvertor extends Activity {
         return s;
     }
 
-//    public void imgtopdf(List<File> files){
-//        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-//        String dirPath = path.getPath();
-//        try {
-//            for (File f : files)
-//            {
-//                String fileName=f.getName();
-//                String outputFile = fileName.replace(".jpg", ".pdf");
-//                outputFile = "zebra.pdf";
-//                Document document = new Document();
-//                PdfWriter.getInstance(document, new FileOutputStream(new File(dirPath, outputFile)));
-//                document.open();
-//                document.newPage();
-//                Image image = Image.getInstance(new File(dirPath, fileName).getAbsolutePath());
-//                image.setAbsolutePosition(0, 550);
-//                image.setBorderWidth(0);
-//                image.scaleToFit(595, 842);
-//                document.add(image);
-//                document.close();
-//            }
-//            System.out.println("Done");
-//        }catch (Exception e){
-//            Log.d("ERRRORRR",e+"");
-//        }
-//    }
-
 
     private void createPDFWithMultipleImage(List<File> images){
         Log.d("Entry","create pdf");
@@ -201,7 +175,6 @@ public class ImgToPdfConvertor extends Activity {
     }
 
 
-
     public static String getDirectory() throws Exception {
         File directory = new File(Environment.getExternalStorageDirectory()
                 + File.separator
@@ -209,5 +182,10 @@ public class ImgToPdfConvertor extends Activity {
         if (!directory.exists() && !directory.isDirectory())
             directory.mkdirs();
         return directory.getAbsolutePath();
+    }
+
+    public void webviewIntent(View v){
+        Intent i = new Intent(v.getContext(),WebViewToPdf.class);
+        startActivity(i);
     }
 }

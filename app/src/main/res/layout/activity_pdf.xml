@@ -18,6 +18,21 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="46dp" />
 
+
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:text="Webpage to Pdf Convertor"
+        android:background="#61C241"
+        android:id="@+id/select_webview"
+        android:textSize="20dp"
+        android:padding="5dp"
+        android:onClick="webviewIntent"
+        android:layout_below="@+id/select_img_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp" />
+
 <!--    <EditText-->
 <!--        android:id="@+id/fileName"-->
 <!--        android:layout_width="match_parent"-->
