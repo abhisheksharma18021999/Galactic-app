@@ -33,6 +33,19 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="46dp" />
 
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:text="Dynamic Pdf Convertor"
+        android:background="#61C241"
+        android:id="@+id/select_dynamic_pdf"
+        android:textSize="20dp"
+        android:padding="5dp"
+        android:onClick="createDynamicPdf"
+        android:layout_below="@+id/select_webview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp" />
+
 <!--    <EditText-->
 <!--        android:id="@+id/fileName"-->
 <!--        android:layout_width="match_parent"-->

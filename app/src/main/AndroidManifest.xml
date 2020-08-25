@@ -35,6 +35,8 @@
             android:name=".ImgToPdfConvertor"/>
         <activity
             android:name=".WebViewToPdf"/>
+        <activity
+            android:name=".DynamicPdfCreator"/>
     </application>
 
 
