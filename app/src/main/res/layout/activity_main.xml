@@ -28,6 +28,19 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"/>
 
+    <Button
+        android:id="@+id/share"
+        android:background="#61C241"
+        android:text="Dialog box"
+        android:textColor="#000000"
+        android:textSize="30dp"
+        android:padding="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_width="match_parent"/>
+
+
+
 </RelativeLayout>
 
 
