@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button button1 =null;
     Button button2 =null;
+    Button button3 =null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(),SecondActivity.class);
+                startActivity(i);
+            }
+        });
+
+        button3=(Button)findViewById(R.id.htmlpdf);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(),Testpdf.class);
                 startActivity(i);
             }
         });
@@ -44,5 +54,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

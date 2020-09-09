@@ -1,13 +1,16 @@
 package com.example.myapplication;
 
+
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +26,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+
+
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -55,7 +64,14 @@ public class WebViewToPdf extends AppCompatActivity {
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setDomStorageEnabled(true);
-        webView.loadUrl("https://store.bizrise.in/qualit1");
+        webView.computeScroll();
+        webView.setBackgroundColor(2);
+        webView.setMinimumHeight(50000);
+        webView.setMinimumWidth(50000);
+        webView.setVerticalScrollBarEnabled(true);
+        webView.setHorizontalScrollBarEnabled(true);
+        webView.getSettings().setDefaultTextEncodingName("utf-8");
+        webView.loadUrl("https://deepali2000.github.io/poster/");
         webView.setWebViewClient(new WebViewClient());
     }
 
@@ -126,4 +142,6 @@ public class WebViewToPdf extends AppCompatActivity {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+
 }

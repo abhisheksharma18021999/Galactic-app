@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/activityName"
+    <Button
+        android:id="@+id/htmlpdf"
         android:padding="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Dimension C-137"
-        android:textColor="#FFFFFF"
+        android:text="html to pdf"
+        android:textColor="#000000"
         android:textSize="35sp"
+        android:background="#61C241"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -38,6 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:layout_width="match_parent"/>
+
+
 
 
 

@@ -37,6 +37,8 @@
             android:name=".WebViewToPdf"/>
         <activity
             android:name=".DynamicPdfCreator"/>
+        <activity
+            android:name=".Testpdf"/>
     </application>
 
 

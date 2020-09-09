@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -36,12 +39,15 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class ImgToPdfConvertor extends Activity {
@@ -135,7 +141,7 @@ public class ImgToPdfConvertor extends Activity {
                 PdfDocument pdfDocument = new PdfDocument();
 
                 for (int i = 0; i < images.size(); i++){
-                    Bitmap bitmap = BitmapFactory.decodeFile("");
+                    Bitmap bitmap = BitmapFactory.decodeFile(images.get(i).getPath());
                     PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(), (i + 1)).create();
                     PdfDocument.Page page = pdfDocument.startPage(pageInfo);
                     Canvas canvas = page.getCanvas();
@@ -148,7 +154,6 @@ public class ImgToPdfConvertor extends Activity {
                 }
                 pdfDocument.writeTo(fileOutputStream);
                 pdfDocument.close();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -202,83 +207,242 @@ public class ImgToPdfConvertor extends Activity {
 
 
     public void createDynamicPdf(View v) throws Exception{
-        System.out.println("called");
-        File file = getOutputFile();
-        System.out.println("file path"+file.getAbsolutePath());
-        String FILE = file.getAbsolutePath();
-        document = new Document();
+        System.out.print("Entered  func()");
         try {
+            File file = getOutputFile();
+            System.out.println("file path"+file.getAbsolutePath());
+            String FILE = file.getAbsolutePath();
+            Uri fileUri =  Uri.fromFile(file);
+            System.out.print("Doc  created()");
+            document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
-            addTitlePage(document);
-            backgroundTask(document);
-          //  addImage(document);
+
+        Map<String,List<PdfDetails>> map = getDetails();
+        int i = 0;
+        for (String key : map.keySet()) {
+
+            // category title
+            System.out.println("Key  == "+key);
+            addTitlePage(document,key);
+
+            List<PdfDetails> details = map.get(key);
+            System.out.println("details == list");
+            if(details==null){
+                System.out.println("Null");
+            }else{
+                System.out.println("Not Null");
+            }
+            System.out.println("loop == size"+details.size());
+
+            for (int j=0;j<details.size();j++)
+            {
+                System.out.println("loop1 == start");
+                System.out.println("{ price } "+details.get(j).getProductPrice());
+                System.out.println("{ url } "+details.get(j).getProductURl());
+                System.out.println("{ name } "+details.get(j).getProductName());
+
+                // add details
+                addProductdetails(document,details.get(j).getProductName(),details.get(j).getProductPrice());
+                // add image url in pdf
+                imageAddToPdf(document,details.get(j).getProductURl());
+                // add space
+                Paragraph preface = new Paragraph();
+                addEmptyLine(preface, 2);
+                document.add(preface);
+                System.out.println("loop2 == End");
+            }
+            document.newPage();
+            i++;
+        }
+       document.close();
+       // shareCategoryAsText(map);
+            Log.e("QQWW",fileUri+"");
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+            PackageManager pm=getPackageManager();
+            try {
+                Intent waIntent = new Intent(Intent.ACTION_SEND);
+                waIntent.setType("*/*");
+                PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+                waIntent.setPackage("com.whatsapp");
+                waIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                waIntent.putExtra(Intent.EXTRA_STREAM , fileUri);
+                startActivity(Intent.createChooser(waIntent, "Share with"));
+            } catch (Exception e) {
+                Toast.makeText(this, "WhatsApp not Installed" + "  "+e, Toast.LENGTH_SHORT)
+                        .show();
+                Log.e("error",""+e);
+            }
         } catch (Exception e) {
-            System.out.print("ERRORR " + e);
+            System.out.println("ERRORR " + e);
         }
     }
 
-    public void backgroundTask(final Document document){
+    public void imageAddToPdf(final Document document, final String url){
+        System.out.println("addimage == start");
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy =
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
                 try {
-                    String imgPAth = "https://firebasestorage.googleapis.com/v0/b/localpay-14450.appspot.com/o/agentPhotographs%2F1594189219595.jpg?alt=media&token=903f066f-3491-4f28-b8a4-a4ef7dac91f1";
-                     image = Image.getInstance(new URL(imgPAth));
+                    System.out.println("addimage URL == "+url);
+                    image = Image.getInstance(new URL(url));
                 }catch (Exception e){
                     System.out.println("background task errorr "+ e);
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
                         addImage(image,document);
-                        addImage(image,document);
-                        document.close();
-                    }
-                });
-            }
-        });
-        thread.start();
+    }
+
+    public void addTitlePage(Document document,String categoryName) throws DocumentException {
+        System.out.println("title == start");
+        Paragraph preface = new Paragraph();
+        addEmptyLine(preface, 1);
+        preface.add(new Paragraph(categoryName+" Catalog", catFont));
+        preface.setAlignment(Element.ALIGN_CENTER);
+        addEmptyLine(preface, 1);
+        document.add(preface);
+        System.out.println("title == end");
+    }
+
+    private void addProductdetails(Document document, String productName, String productPrice) throws DocumentException {
+        System.out.println("details == start");
+        Paragraph preface = new Paragraph();
+        preface.add(new Paragraph("Product Name : "+productName, subFont));
+        addEmptyLine(preface, 1);
+        preface.add(new Paragraph("Product price : "+productPrice, subFont));
+        addEmptyLine(preface, 1);
+        preface.add(new Paragraph("Product Image : ", subFont));
+        addEmptyLine(preface, 1);
+        preface.add(new Paragraph("!!!! ORDER NOW !!!!  ", redFont));
+        addEmptyLine(preface, 1);
+        document.add(preface);
+        System.out.println("details == End");
     }
 
 
-
-    private static void addImage(Image image,Document document){
+    private  void addImage(Image image,Document document){
         try {
+            System.out.println("addimage () Start == ");
             document.add(image);
+            System.out.println("addimage () end == ");
         }catch (Exception e){
             Log.e("ERROR", "addImage: "+e);
         }
     }
 
-    private static void addTitlePage(Document document)
-            throws DocumentException {
-        Paragraph preface = new Paragraph();
-        addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Store  $Category Catalog", catFont));
-        preface.setAlignment(Element.ALIGN_CENTER);
-        addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Product Name : ", subFont));
-        addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Product Image : ", subFont));
-        addEmptyLine(preface, 1);
-        preface.add(new Paragraph(
-                "   ORDER NOW !!!!  ",
-                redFont));
-        document.add(preface);
-    }
+//    private static void addTitlePage(Document document)
+//            throws DocumentException {
+//        Paragraph preface = new Paragraph();
+//        addEmptyLine(preface, 1);
+//        preface.add(new Paragraph("Store  $Category Catalog", catFont));
+//        preface.setAlignment(Element.ALIGN_CENTER);
+//        addEmptyLine(preface, 1);
+//        preface.add(new Paragraph("Product Name : ", subFont));
+//        addEmptyLine(preface, 1);
+//        preface.add(new Paragraph("Product Image : ", subFont));
+//        addEmptyLine(preface, 1);
+//        preface.add(new Paragraph(
+//                "   ORDER NOW !!!!  ",
+//                redFont));
+//        document.add(preface);
+//    }
 
     private static void addEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
         }
+    }
+
+    class PdfDetails{
+        private  String productName ;
+        private String productURl ;
+        private String productPrice ;
+
+
+        public  PdfDetails(String productName,String productURl,String productPrice){
+            this.productName = productName;
+            this.productURl = productURl;
+            this.productPrice = productPrice;
+        }
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public String getProductURl() {
+            return productURl;
+        }
+
+        public String getProductPrice() {
+            return productPrice;
+        }
+    }
+
+    public Map<String,List<PdfDetails>> getDetails(){
+        int countOfCategories = 2; // fetch total selected categories
+
+        // fetch Details
+        Map<String,List<PdfDetails>> map = new HashMap<>();
+        for(int i=0 ; i < countOfCategories ; i++) {
+            String categoryName = "shoe";   // fetch category name
+            if(i==1){
+                categoryName = "footwear";
+            }
+            int productCount = 2;       // fetch count of products in that category
+            List<PdfDetails> details = new ArrayList<>();
+            for(int j=0 ; j < productCount ; j++){
+                details.add(new PdfDetails("adiddas","https://www.tutorialspoint.com/images/tp-logo-diamond.png","1000"));
+            }
+            map.put(categoryName, details);
+        }
+        return map;
+    }
+
+    public void   shareCategoryAsText( Map<String,List<PdfDetails>> map){
+        String sms = "\n"+"List of categories available at our store".toUpperCase()+"\n";
+        String msgC = "";
+        String msgP = "";
+        int i = 0;
+        for (String key : map.keySet()) {
+            msgC =  msgC ;
+            msgC = "Category :- " + msgC + key.toUpperCase() + "\n";
+            List<PdfDetails> details = map.get(key);
+            for (int j=0;j<details.size();j++)
+            {
+                msgP = "Product :-" + msgP + details.get(j).getProductName() + " @ " +" Rs."+ details.get(j).getProductPrice() + "\n";
+                msgP = msgP + "click the link to view product "+"\n";
+                msgP = msgP + details.get(j).getProductURl() +"\n";
+                msgC = msgC + "\n" + msgP + "\n";
+                msgP = "";
+            }
+            i++;
+            sms = sms +"\n"+ msgC;
+            msgC = "";
+        }
+        sms = sms + "\n";
+        sms = sms + "Order Now !!";
+        System.out.println(" == TEXT ==>"+sms);
+
+
+        PackageManager pm=getPackageManager();
+        try {
+            Intent waIntent = new Intent(Intent.ACTION_SEND);
+            waIntent.setType("text/plain");
+            PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+            //Check if package exists or not. If not then code
+            //in catch block will be called
+            waIntent.setPackage("com.whatsapp");
+
+            waIntent.putExtra(Intent.EXTRA_TEXT, sms);
+            startActivity(Intent.createChooser(waIntent, "Share with"));
+        } catch (Exception e) {
+            Toast.makeText(this, "WhatsApp not Installed", Toast.LENGTH_SHORT)
+                    .show();
+        }
+
     }
 
 }

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "214192445437",
+    "firebase_url": "https://abhishek-c5182.firebaseio.com",
+    "project_id": "abhishek-c5182",
+    "storage_bucket": "abhishek-c5182.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214192445437:android:67ec093ca3963b52cdab94",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "214192445437-lpbimqu9dctrtesfc1t8d3n1ph2hjcdf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0Xjrrw_vNBZsS_gRtb8fAkX_ztOvKStg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "214192445437-lpbimqu9dctrtesfc1t8d3n1ph2hjcdf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
